@@ -1,26 +1,14 @@
+"""
+Arquivo armazena os dados para a criação do arquivo XML
+@Autor: Frederico Gustavo Magalhães
+@Data: 2021-04-15
+"""
+
 import xml.etree.cElementTree as et
-from random import randint
+import function as f
+import time
 
-# Função cria o número da linha de forma randômica
-def GeraNumLinha():
-    linha = str(randint(0, 999999))
-    tamanho = 6
-    
-    return ValidaTamanho(linha, tamanho)
-
-
-# Verifica se o tamanho do registro é igual ao tamanho infomado na função
-def ValidaTamanho(valor, tamanho):
-    linhazero = ''
-    
-    if len(valor) < tamanho:
-        novalinha = linhazero + valor
-        while len(novalinha) != tamanho:
-            linhazero += '0'
-            novalinha = linhazero + valor
-        return novalinha
-    else:
-        return (valor)
+from datetime import date
 
 tamdesenho = 11
 tamvalor = 10
@@ -68,13 +56,13 @@ et.SubElement(transp, 'transportadora')
 while True:
     produto = et.SubElement(doc, 'prod')
 
-    linha = GeraNumLinha()
+    linha = f.GeraNumLinha()
     et.SubElement(produto, 'nLin').text = linha
         
     numdesenho = input('Digite o número do desenho. ')
     
     # Valida a qtde de caracteres digitados no campo DESENHO
-    desenho = ValidaTamanho(numdesenho, tamdesenho)
+    desenho = f.ValidaTamanho(numdesenho, tamdesenho)
 
     et.SubElement(produto, 'cAdicProdClie').text = desenho
     et.SubElement(produto, 'vProd')
@@ -82,14 +70,14 @@ while True:
     ValorTotalDesenho = input('Informe o valor total do desenho. ').replace(',', '').replace('.', '')
 
     # Valida a qtde de caracteres digitados no campo ValorTotalDesenho
-    valor = ValidaTamanho(ValorTotalDesenho, tamvalor)
+    valor = f.ValidaTamanho(ValorTotalDesenho, tamvalor)
 
     et.SubElement(produto, 'vLiqTot').text = valor
     
     ValorUnitDesenho = input('Informe o valor uniário do desenho. ').replace(',', '').replace('.', '')
     
     # Valida a qtde de caracteres digitados no campo ValorUnitDesenho
-    valorunit = ValidaTamanho(ValorUnitDesenho, tamvalor)
+    valorunit = f.ValidaTamanho(ValorUnitDesenho, tamvalor)
 
     et.SubElement(produto, 'vLiqUni').text = valorunit
     et.SubElement(produto, 'vUnCom').text = '000000000000000.00'
@@ -112,7 +100,10 @@ while True:
         ReqIntern = et.SubElement(produto, 'ReqIntern')
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
-        et.SubElement(ReqIntern, 'dhPedCham').text = input('Informe a data e a hora com o seguinte formato AAAA-MM-DDTHH:MM:SS: ')
+        
+        date = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime())
+        
+        et.SubElement(ReqIntern, 'dhPedCham').text = date
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
                     
@@ -128,5 +119,4 @@ while True:
     if sair == 'S':
         break
 
-tree = et.ElementTree(root)
-tree.write('filename.xml')
+f.GeraXML(root)
