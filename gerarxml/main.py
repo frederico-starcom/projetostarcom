@@ -1,6 +1,9 @@
 import xml.etree.cElementTree as et
 from random import randint
 
+__version__ = '1.0'
+__author__ = 'Frederico Gustavo Magalhães'
+
 # Função cria o número da linha de forma randômica
 def GeraNumLinha():
     linha = str(randint(0, 999999))

@@ -4,6 +4,9 @@ Arquivo armazena os dados para a criação do arquivo XML
 @Data: 2021-04-15
 """
 
+__version__ = '1.0'
+__author__ = 'Frederico Gustavo Magalhães'
+
 import xml.etree.cElementTree as et
 import function as f
 import time
