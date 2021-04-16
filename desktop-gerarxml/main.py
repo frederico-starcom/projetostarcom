@@ -8,8 +8,6 @@ import xml.etree.cElementTree as et
 import function as f
 import time
 
-from datetime import date
-
 tamdesenho = 11
 tamvalor = 10
 
