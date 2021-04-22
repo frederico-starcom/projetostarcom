@@ -116,16 +116,16 @@ while True:
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
                     
-        sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SAIR e "C" para CONTINUAR ').upper()
+        sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SIM e "N" para NÃO ').upper()
                     
-        if sair == 'S':
+        if sair == 'N':
             break
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
     
-    sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SAIR e "C" para CONTINUAR ').upper()
+    sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SIM e "N" para NÃO ').upper()
                 
-    if sair == 'S':
+    if sair == 'N':
         break
 
 tree = et.ElementTree(root)
