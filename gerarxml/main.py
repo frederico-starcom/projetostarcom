@@ -1,7 +1,11 @@
 import xml.etree.cElementTree as et
-from random import randint
+import time
 
-__version__ = '1.0'
+from random import randint
+from datetime import datetime
+
+
+__version__ = '1.1'
 __author__ = 'Frederico Gustavo Magalhães'
 
 # Função cria o número da linha de forma randômica
@@ -27,6 +31,7 @@ def ValidaTamanho(valor, tamanho):
 
 tamdesenho = 11
 tamvalor = 10
+count = 0
 
 root = et.Element('NFeB2BFin')
 doc = et.SubElement(root, 'iCab')
@@ -98,7 +103,10 @@ while True:
     et.SubElement(produto, 'vUnCom').text = '000000000000000.00'
     et.SubElement(produto, 'iPesoB').text = '000000000000000.400'
     et.SubElement(produto, 'iPesoL').text = '000000000000000.400'
-    et.SubElement(produto, 'qPed').text = input('Informe a quantidade solicitado do desenho. ')
+    
+    qtde_progressivo = int(input('Informe a quantidade solicitado do desenho. '))
+    et.SubElement(produto, 'qPed').text = str(qtde_progressivo)
+    
     et.SubElement(produto, 'unidMedProd').text = 'EA'
                 
     NFref = et.SubElement(produto, 'NFref')
@@ -111,18 +119,25 @@ while True:
     et.SubElement(infCompCarg, 'dEmbContida')
                 
     # Realiza a inclusão de novos progressivos referentes ao desenho cadastrado ao XML Logístico
-    while True:
+    while qtde_progressivo > count:
         ReqIntern = et.SubElement(produto, 'ReqIntern')
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
-        et.SubElement(ReqIntern, 'dhPedCham').text = input('Informe a data e a hora com o seguinte formato AAAA-MM-DDTHH:MM:SS: ')
+
+        date = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime())
+        et.SubElement(ReqIntern, 'dhPedCham').text = date
+
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
+
+        count += 1
                     
+        '''
         sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SIM e "N" para NÃO ').upper()
                     
         if sair == 'N':
             break
+        '''
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
     
@@ -132,4 +147,6 @@ while True:
         break
 
 tree = et.ElementTree(root)
-tree.write('filename.xml')
+date_xml = datetime.now()
+date_string = date_xml.strftime('%Y-%m-%d-%H:%M:%S')
+tree.write(f'{date_string}.xml')
