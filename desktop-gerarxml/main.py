@@ -13,6 +13,7 @@ import time
 
 tamdesenho = 11
 tamvalor = 10
+count = 0
 
 root = et.Element('NFeB2BFin')
 doc = et.SubElement(root, 'iCab')
@@ -84,7 +85,10 @@ while True:
     et.SubElement(produto, 'vUnCom').text = '000000000000000.00'
     et.SubElement(produto, 'iPesoB').text = '000000000000000.400'
     et.SubElement(produto, 'iPesoL').text = '000000000000000.400'
-    et.SubElement(produto, 'qPed').text = input('Informe a quantidade solicitado do desenho. ')
+
+    qtde_progressivo = int(input('Informe a quantidade solicitado do desenho. '))
+    et.SubElement(produto, 'qPed').text = qtde_progressivo
+
     et.SubElement(produto, 'unidMedProd').text = 'EA'
                 
     NFref = et.SubElement(produto, 'NFref')
@@ -97,7 +101,7 @@ while True:
     et.SubElement(infCompCarg, 'dEmbContida')
                 
     # Realiza a inclusão de novos progressivos referentes ao desenho cadastrado ao XML Logístico
-    while True:
+    while count < qtde_progressivo:
         ReqIntern = et.SubElement(produto, 'ReqIntern')
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
@@ -107,11 +111,15 @@ while True:
         et.SubElement(ReqIntern, 'dhPedCham').text = date
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
+
+        count += 1
                     
+        '''
         sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SAIR e "C" para CONTINUAR ').upper()
                     
         if sair == 'S':
             break
+        '''
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
     
