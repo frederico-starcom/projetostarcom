@@ -101,7 +101,7 @@ while True:
     et.SubElement(infCompCarg, 'dEmbContida')
                 
     # Realiza a inclusão de novos progressivos referentes ao desenho cadastrado ao XML Logístico
-    while count < qtde_progressivo:
+    while qtde_progressivo > count:
         ReqIntern = et.SubElement(produto, 'ReqIntern')
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
@@ -115,17 +115,17 @@ while True:
         count += 1
                     
         '''
-        sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SAIR e "C" para CONTINUAR ').upper()
+        sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SIM e "N" para NÃO ').upper()
                     
-        if sair == 'S':
+        if sair == 'N':
             break
         '''
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
     
-    sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SAIR e "C" para CONTINUAR ').upper()
+    sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SIM e "N" para NÃO ').upper()
                 
-    if sair == 'S':
+    if sair == 'N':
         break
 
 f.GeraXML(root)
