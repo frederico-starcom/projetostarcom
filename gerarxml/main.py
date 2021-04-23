@@ -1,4 +1,7 @@
 import xml.etree.cElementTree as et
+import time
+
+from datetime import datetime
 from random import randint
 
 __version__ = '1.0'
@@ -41,7 +44,10 @@ nota = input('Número da nota fiscal. ')
 et.SubElement(doc, 'nNF').text = nota
 
 et.SubElement(doc, 'serie').text = '1'
-et.SubElement(doc, 'dEmi').text = input('Data da emissão da nota fiscal. ')
+
+data_emissao = input('Data da emissão da nota fiscal. ')
+et.SubElement(doc, 'dEmi').text = data_emissao
+
 et.SubElement(doc, 'chNFe').text = input('Informe a chave da nota fiscal. ')
 
 part = et.SubElement(doc, 'partes')
@@ -69,6 +75,8 @@ et.SubElement(transp, 'transportadora')
 
 # Realiza a inclusão de novos desenhos ao XML Logístico
 while True:
+    count = 0
+
     produto = et.SubElement(doc, 'prod')
 
     linha = GeraNumLinha()
@@ -98,7 +106,10 @@ while True:
     et.SubElement(produto, 'vUnCom').text = '000000000000000.00'
     et.SubElement(produto, 'iPesoB').text = '000000000000000.400'
     et.SubElement(produto, 'iPesoL').text = '000000000000000.400'
-    et.SubElement(produto, 'qPed').text = input('Informe a quantidade solicitado do desenho. ')
+    
+    qtde_progressivo = int(input('Informe a quantidade solicitado do progressivo. '))
+    et.SubElement(produto, 'qPed').text = str(qtde_progressivo)
+    
     et.SubElement(produto, 'unidMedProd').text = 'EA'
                 
     NFref = et.SubElement(produto, 'NFref')
@@ -111,25 +122,27 @@ while True:
     et.SubElement(infCompCarg, 'dEmbContida')
                 
     # Realiza a inclusão de novos progressivos referentes ao desenho cadastrado ao XML Logístico
-    while True:
+    while qtde_progressivo > count:
         ReqIntern = et.SubElement(produto, 'ReqIntern')
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
-        et.SubElement(ReqIntern, 'dhPedCham').text = input('Informe a data e a hora com o seguinte formato AAAA-MM-DDTHH:MM:SS: ')
+
+        date = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime())
+        
+        et.SubElement(ReqIntern, 'dhPedCham').text = date
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
-                    
-        sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SAIR e "C" para CONTINUAR ').upper()
-                    
-        if sair == 'S':
-            break
+        
+        count += 1
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
     
-    sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SAIR e "C" para CONTINUAR ').upper()
+    sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SIM e "N" para NÃO ').upper()
                 
-    if sair == 'S':
+    if sair == 'N':
         break
 
 tree = et.ElementTree(root)
-tree.write('filename.xml')
+date = datetime.now()
+date_string = date.strftime('%Y-%m-%d-%H:%M:%S')
+tree.write(f'{date_string}.xml')
