@@ -31,7 +31,6 @@ def ValidaTamanho(valor, tamanho):
 
 tamdesenho = 11
 tamvalor = 10
-count = 0
 
 root = et.Element('NFeB2BFin')
 doc = et.SubElement(root, 'iCab')
@@ -74,6 +73,8 @@ et.SubElement(transp, 'transportadora')
 
 # Realiza a inclusão de novos desenhos ao XML Logístico
 while True:
+    count = 0
+
     produto = et.SubElement(doc, 'prod')
 
     linha = GeraNumLinha()
@@ -131,13 +132,6 @@ while True:
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
 
         count += 1
-                    
-        '''
-        sair = input(f'Deseja continuar cadastrando os PROGRESSIVOS para o desenho "{desenho}"? "S" para SIM e "N" para NÃO ').upper()
-                    
-        if sair == 'N':
-            break
-        '''
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
     
