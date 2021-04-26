@@ -147,8 +147,10 @@ tree = et.ElementTree(root)
 
 try:
     date_xml = datetime.now()
-    date_string = date_xml.strftime('%Y-%m-%d-%H:%M:%S')
-    tree.write(f'{nota}_{date_string}.xml')
+    date_string = date_xml.strftime('%Y%m%d%H%M%S')
+    file_name = '000033228_0000'
+    complement = '_001_'
+    tree.write(f'{file_name}{nota}{complement}{date_string}.xml')
     print('Aquivo criado com sucesso!')
 except:
     print('Erro ao criar o arquivo!')
