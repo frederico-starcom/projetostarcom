@@ -46,7 +46,7 @@ et.SubElement(doc, 'nNF').text = nota
 
 et.SubElement(doc, 'serie').text = '1'
 
-data_emissao = input('Data da emissão da nota fiscal. ')
+data_emissao = input('Data da emissão da nota fiscal no formato "YYYY-MM-DD". ')
 et.SubElement(doc, 'dEmi').text = data_emissao
 
 et.SubElement(doc, 'chNFe').text = input('Informe a chave da nota fiscal. ')
@@ -145,6 +145,10 @@ while True:
 
 tree = et.ElementTree(root)
 
-date_xml = datetime.now()
-date_string = date_xml.strftime('%Y-%m-%d-%H:%M:%S')
-tree.write(f'{nota}_{date_string}.xml')
+try:
+    date_xml = datetime.now()
+    date_string = date_xml.strftime('%Y-%m-%d-%H:%M:%S')
+    tree.write(f'{nota}_{date_string}.xml')
+    print('Aquivo criado com sucesso!')
+except:
+    print('Erro ao criar o arquivo!')
