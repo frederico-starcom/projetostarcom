@@ -147,6 +147,7 @@ try:
     file_name = '000033228_0000'
     complement = '_001_'
     tree.write(f'{file_name}{nota}{complement}{date_string}.xml')
+    count_progressivo = 1
     print('Aquivo criado com sucesso!')
 except:
     print('Erro ao criar o arquivo!')
