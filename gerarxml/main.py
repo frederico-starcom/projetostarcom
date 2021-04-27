@@ -1,18 +1,10 @@
 import xml.etree.cElementTree as et
-import datetime
 
-from random import randint
+from datetime import datetime
 
 
 __version__ = '1.1'
 __author__ = 'Frederico Gustavo Magalhães'
-
-# Função cria o número da linha de forma randômica
-def GeraNumLinha():
-    linha = str(randint(0, 999999))
-    tamanho = 6
-    
-    return ValidaTamanho(linha, tamanho)
 
 
 # Verifica se o tamanho do registro é igual ao tamanho infomado na função
@@ -30,6 +22,7 @@ def ValidaTamanho(valor, tamanho):
 
 tamdesenho = 11
 tamvalor = 10
+tamprogres = 6
 
 root = et.Element('NFeB2BFin')
 doc = et.SubElement(root, 'iCab')
@@ -45,11 +38,7 @@ et.SubElement(doc, 'nNF').text = nota
 
 et.SubElement(doc, 'serie').text = '1'
 
-<<<<<<< HEAD
 data_emissao = input('Data da emissão da nota fiscal(YYYY-MM-DD) ')
-=======
-data_emissao = input('Data da emissão da nota fiscal no formato "YYYY-MM-DD". ')
->>>>>>> 215b27f418d11db9efa6fa1084ff3077702c911e
 et.SubElement(doc, 'dEmi').text = data_emissao
 
 et.SubElement(doc, 'chNFe').text = input('Informe a chave da nota fiscal. ')
@@ -78,13 +67,15 @@ et.SubElement(transp, 'tpTrans')
 et.SubElement(transp, 'transportadora')
 
 # Realiza a inclusão de novos desenhos ao XML Logístico
+count_progressivo = 1
 while True:
     count = 0
-
+    
     produto = et.SubElement(doc, 'prod')
 
-    linha = GeraNumLinha()
-    et.SubElement(produto, 'nLin').text = linha
+    count_progressivo_str = str(count_progressivo)
+    linha = ValidaTamanho(count_progressivo_str, tamprogres)
+    et.SubElement(produto, 'nLin').text = str(linha)
         
     numdesenho = input('Digite o número do desenho. ')
     
@@ -131,10 +122,8 @@ while True:
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
 
-        #date = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime())
-        data_formatada = datetime.datetime.strptime(data_emissao,'%Y-%m-%d')
-
-        et.SubElement(ReqIntern, 'dhPedCham').text = data_formatada
+        data_formatada = data_emissao + 'T00:00:00'
+        et.SubElement(ReqIntern, 'dhPedCham').text = str(data_formatada)
 
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
@@ -142,6 +131,8 @@ while True:
         count += 1
                 
     infoTemp = et.SubElement(produto, 'infoTemp')
+
+    count_progressivo += 1
     
     sair = input(f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SIM e "N" para NÃO ').upper()
                 
