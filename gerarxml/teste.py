@@ -1,3 +1,4 @@
+'''
 from random import randint
 
 def GeraNumLinha():
@@ -18,3 +19,11 @@ def GeraNumLinha():
 
 
 print(GeraNumLinha())
+'''
+import datetime
+
+data_usuario = '2015-04-25'
+data_formatada = datetime.datetime.strptime(data_usuario,'%Y-%m-%d')
+print(data_formatada)
+
+# tm_hour=14, tm_min=17, tm_sec=2,

@@ -1,8 +1,7 @@
 import xml.etree.cElementTree as et
-import time
+import datetime
 
 from random import randint
-from datetime import datetime
 
 
 __version__ = '1.1'
@@ -46,7 +45,7 @@ et.SubElement(doc, 'nNF').text = nota
 
 et.SubElement(doc, 'serie').text = '1'
 
-data_emissao = input('Data da emissão da nota fiscal. ')
+data_emissao = input('Data da emissão da nota fiscal(YYYY-MM-DD) ')
 et.SubElement(doc, 'dEmi').text = data_emissao
 
 et.SubElement(doc, 'chNFe').text = input('Informe a chave da nota fiscal. ')
@@ -128,8 +127,10 @@ while True:
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
         et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
 
-        date = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime())
-        et.SubElement(ReqIntern, 'dhPedCham').text = date
+        #date = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime())
+        data_formatada = datetime.datetime.strptime(data_emissao,'%Y-%m-%d')
+
+        et.SubElement(ReqIntern, 'dhPedCham').text = data_formatada
 
         et.SubElement(ReqIntern, 'qPedCham').text = '1'
         et.SubElement(ReqIntern, 'qEmbalag').text = '10'
