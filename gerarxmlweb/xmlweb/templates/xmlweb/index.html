@@ -1,13 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8" http-equiv="Content-Language" content="pt-br">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Starcom</title>
 </head>
 <body>
-<h1 align="center">Gerar XML Logístico</h1>
+<div class="titulo">
+    <h1 align="center">Gerar XML Logístico</h1>
+    <img src="img/logo.png">
+</div>
+<!--Formulário de criação do XML Logístico-->
+<form method="post">{% csrf_token %}
+    <div class="nota-fiscal">
+        <h4>Dados da nota fiscal</h4>
+        <label>Número da nota fiscal:</label>
+        <input id="invoice_number" type="text" xml:space="default">
+
+        <label>Data da emissão:</label>
+        <input id="date_create" type="datetime-local" xml:space="default">
+
+        <label>Chave da nota fiscal:</label>
+        <input id="invoice_key" type="text" xml:space="default">
+    </div>
+    <div class="desenho">
+        <h4>Informações dos progressivos</h4>
+        <label>Número do desenho:</label>
+        <input id="part_number" type="text" xml:space="default">
+
+        <label>Valor total do desenho:</label>
+        <input id="value_total_drawing" type="text" xml:space="default">
+
+        <label>Valor unitário do desenho:</label>
+        <input id="value_unit_drawing" type="text" xml:space="default">
+
+        <label>Quantidade do desenho solicitada:</label>
+        <input id="amount_drawing" type="text" xml:space="default">
+
+        <section>
+            <div class="progressivo">
+                <label>Informe o número do progressivo:</label>
+                <input id="number_progressive" type="text" xml:space="default">
+
+                <label>Data de criação do progressivo:</label>
+                <input id="date_create_progressive" type="datetime-local" xml:space="default">
+            </div>
+            <input type="submit" value="Inserir novo" autofocus="autofocus">
+        </section>
+    </div>
+    <input type="submit" value="Gerar XML" autofocus="autofocus">
+</form>
 </body>
+<footer>Desenvolvido por Frederico Magalhães</footer>
 </html>
