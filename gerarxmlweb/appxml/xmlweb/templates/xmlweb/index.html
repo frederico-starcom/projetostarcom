@@ -7,7 +7,10 @@
 <body>
 <div class="titulo">
     <h1 align="center">Gerar XML Logístico</h1>
-    <img src="img/logo.png">
+    <figure>
+        {% load static %}
+        <img src="{% static '' %}">
+    </figure>
 </div>
 <!--Formulário de criação do XML Logístico-->
 <form method="post">{% csrf_token %}
