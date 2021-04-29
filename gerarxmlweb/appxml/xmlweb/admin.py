@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appxml.xmlweb.models import Xml
+from xmlweb.models import XML
 
 # Register your models here.
 admin.site.register(Xml)
