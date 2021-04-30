@@ -1,57 +1,29 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8" http-equiv="Content-Language" content="pt-br">
+    <link rel="stylesheet" type="text/css" href="{% static 'xmlweb/styles.css' %}">
     <title>Starcom</title>
 </head>
 <body>
-<div class="titulo">
-    <h1 align="center">Gerar XML Logístico</h1>
-    <figure>
-        {% load static %}
-        <img src="{% static '' %}">
-    </figure>
-</div>
-<!--Formulário de criação do XML Logístico-->
-<form method="post">{% csrf_token %}
-    <div class="nota-fiscal">
-        <h4>Dados da nota fiscal</h4>
-        <label>Número da nota fiscal:</label>
-        <input id="invoice_number" type="text" xml:space="default">
-
-        <label>Data da emissão:</label>
-        <input id="date_create" type="datetime-local" xml:space="default">
-
-        <label>Chave da nota fiscal:</label>
-        <input id="invoice_key" type="text" xml:space="default">
+    <div class="titulo">
+        <h1><u> XML Logístico</u></h1>
+        <figure class="image">
+            <img src="{% static 'xmlweb/logo.png' %}" alt="Starcom">
+        </figure>
     </div>
-    <div class="desenho">
-        <h4>Informações dos progressivos</h4>
-        <label>Número do desenho:</label>
-        <input id="part_number" type="text" xml:space="default">
-
-        <label>Valor total do desenho:</label>
-        <input id="value_total_drawing" type="text" xml:space="default">
-
-        <label>Valor unitário do desenho:</label>
-        <input id="value_unit_drawing" type="text" xml:space="default">
-
-        <label>Quantidade do desenho solicitada:</label>
-        <input id="amount_drawing" type="text" xml:space="default">
-
-        <section>
-            <div class="progressivo">
-                <label>Informe o número do progressivo:</label>
-                <input id="number_progressive" type="text" xml:space="default">
-
-                <label>Data de criação do progressivo:</label>
-                <input id="date_create_progressive" type="datetime-local" xml:space="default">
-            </div>
-            <input type="submit" value="Inserir novo" autofocus="autofocus">
-        </section>
+    <!-- Criação do formulário para inserção dos dados do XML -->
+    <form id="form" action="#" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+    <div id="rodape">
+        <footer>
+            <p>&reg; Desenvolvido por Frederico Magalhães - 2021</p>
+        </footer>    
     </div>
-    <input type="submit" value="Gerar XML" autofocus="autofocus">
-</form>
 </body>
-<footer>Desenvolvido por Frederico Magalhães</footer>
 </html>

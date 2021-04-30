@@ -1,0 +1,42 @@
+/* Configuração da página */
+html, body {
+  height:100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Ajuste do título */
+.titulo {
+  height: 10em;
+  position: relative;
+}
+
+h1{
+  margin: 0;
+  text-align: center;
+  top: 0%;
+  transform: translate(0%, 65%);
+}
+
+.image{
+  margin-left: 35px;
+  margin-top: 60px;
+  float: left;
+  margin-top: -50px;
+  left: -50%;
+}
+
+/* Identação do rodapé */
+#rodape{
+  position:absolute;
+  bottom:0;
+  width: 800px;
+  margin-top: 0px;
+  line-height: 1.5;
+  font-weight: 200;
+}
+
+footer{
+  font-size: 12px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-display: unset;
+}
