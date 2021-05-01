@@ -17,7 +17,20 @@
     <!-- Criação do formulário para inserção dos dados do XML -->
     <form id="form" action="#" method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.non_field_errors }}
+
+        {{ form.source.errors }}
+        {{ form.source }}
+
+        <table>
+            {% for field in form.visible_fields %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <th><input type="text"></th>
+                </tr>
+            {% endfor %}
+        </table>
+
         <input type="submit" value="Submit">
     </form>
     <div id="rodape">
