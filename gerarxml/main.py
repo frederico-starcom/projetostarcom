@@ -20,10 +20,6 @@ def ValidaTamanho(value, size):
 
 
 
-tamdesenho = 11
-tamvalor = 10
-tamprogres = 6
-
 root = et.Element('NFeB2BFin')
 doc = et.SubElement(root, 'iCab')
 
@@ -33,8 +29,8 @@ et.SubElement(doc, 'nDoc')
 et.SubElement(doc, 'dEmiDoc')
 et.SubElement(doc, 'tpNF').text = '241'
 
-nota = input('Número da nota fiscal. ')
-et.SubElement(doc, 'nNF').text = nota
+invoice_number = input('Número da nota fiscal. ')
+et.SubElement(doc, 'nNF').text = invoice_number
 
 et.SubElement(doc, 'serie').text = '1'
 
@@ -66,10 +62,15 @@ et.SubElement(transp, 'motorista')
 et.SubElement(transp, 'tpTrans')
 et.SubElement(transp, 'transportadora')
 
+# Declaração das variáveis
+count_progressivo = 0
+tamdesenho = 11
+tamvalor = 10
+tamprogres = 6
+
 # Realiza a inclusão de novos desenhos ao XML Logístico
-count_progressivo = 1
 while True:
-    count = 0
+    count_progressivo += 1
 
     produto = et.SubElement(doc, 'prod')
 
@@ -117,10 +118,11 @@ while True:
     et.SubElement(infCompCarg, 'dEmbContida')
 
     # Realiza a inclusão de novos progressivos referentes ao desenho cadastrado ao XML Logístico
+    count = 0
     while qtde_progressivo > count:
         ReqIntern = et.SubElement(produto, 'ReqIntern')
         et.SubElement(ReqIntern, 'tpPedCham').text = '001'
-        et.SubElement(ReqIntern, 'nPedCham').text = input('Informe o número do progressivo. ')
+        et.SubElement(ReqIntern, 'nPedCham').text = input(f'Informe o número do {count + 1}º progressivo: ')
 
         data_formatada = data_emissao + 'T00:00:00'
         et.SubElement(ReqIntern, 'dhPedCham').text = str(data_formatada)
@@ -132,10 +134,8 @@ while True:
 
     infoTemp = et.SubElement(produto, 'infoTemp')
 
-    count_progressivo += 1
-
     sair = input(
-        f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {nota}? "S" para SIM e "N" para NÃO ').upper()
+        f'Deseja continuar cadastrando os DESENHOS para o XML Logístico {invoice_number}? "S" para SIM e "N" para NÃO ').upper()
 
     if sair == 'N':
         break
@@ -147,8 +147,8 @@ try:
     date_string = date_xml.strftime('%Y%m%d%H%M%S')
     file_name = '000033228_0000'
     complement = '_001_'
-    tree.write(f'{file_name}{nota}{complement}{date_string}.xml')
-    count_progressivo = 1
+    tree.write(f'{file_name}{invoice_number}{complement}{date_string}.xml')
     print('Aquivo criado com sucesso!')
+    del count_progressivo
 except:
     print('Erro ao criar o arquivo!')
