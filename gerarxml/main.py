@@ -1,3 +1,7 @@
+#! /usr/bin/python3
+# coding: utf-8
+
+
 import xml.etree.cElementTree as et
 
 from datetime import datetime
