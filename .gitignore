@@ -1,5 +1,5 @@
+.venv/
 .git/
 .metadata/
 .recommenders/
-pyqt/
-node_modules/
+mapear_porta/
