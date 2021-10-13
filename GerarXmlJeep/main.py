@@ -87,7 +87,8 @@ while count < qtde_arquivo:
                                    PNUBIC="          ",
                                    RACKBIN="0000").text = partnumberformat
         count_partnumber += 1
-        seqnum_int += 1
+    
+    seqnum_int += 1
 
     tree = ET.ElementTree(root)
     count_string = str(count + 1)
