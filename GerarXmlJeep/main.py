@@ -68,15 +68,18 @@ while count < qtde_arquivo:
         "A9AEF0B894900010080F22000001911211A0450000000000000000001010200000120004000000058030100080000004002000000000003000" \
         "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000" \
         "00000000000                                          "
-    PARTNUMBERSSECTION = ET.SubElement(root, "PARTNUMBERSSECTION", SUPCOD="       ", VRTCOD="SP_0031410")
+    PARTNUMBERSSECTION = ET.SubElement(
+        root, "PARTNUMBERSSECTION", SUPCOD="       ", VRTCOD="SP_0031410")
 
     # Declaração das variáveis para a inclusão do partnumber
-    qtde_partnumber = int(input('Informe o total de partnumber a ser inserido: '))
+    qtde_partnumber = int(
+        input('Informe o total de partnumber a ser inserido: '))
     count_partnumber = 0
 
     # Condição verificar se o partnumber está dentro do valor necessário
     while count_partnumber < qtde_partnumber:
-        partnumber = str(input(f'Informe o {count_partnumber + 1}º partnumber: '))
+        partnumber = str(
+            input(f'Informe o {count_partnumber + 1}º partnumber: '))
 
         partnumberformat = ValidateSize(partnumber, linesize)
 
@@ -87,7 +90,7 @@ while count < qtde_arquivo:
                                    PNUBIC="          ",
                                    RACKBIN="0000").text = partnumberformat
         count_partnumber += 1
-    
+
     seqnum_int += 1
 
     tree = ET.ElementTree(root)
